@@ -11,7 +11,7 @@ export default {
   name: 'TheConstructor',
 
   mounted () {
-    (() => console.log(`color will mount: ${hexGen()}`))()
+    (() => console.log(`TheConstructor -> color will mount: ${hexGen()}`))()
   }
 }
 </script>
@@ -19,6 +19,7 @@ export default {
 <style>
   .constructor {
     display: flex;
+    justify-content: center;
     flex-basis: 100%;
     padding: 0px 10px;
   }

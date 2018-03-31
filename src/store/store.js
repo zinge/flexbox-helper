@@ -4,9 +4,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    ititial: {
-      display: 'flex'
-    },
-    container: {}
+    container: {
+      type: 'div',
+      name: 'main',
+      styles: [
+        {display: 'flex'}
+      ],
+      childs: []
+    }
   }
 })
