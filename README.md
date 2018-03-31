@@ -1,5 +1,7 @@
 # flexbox-helper
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zinge/flexboxHelper.svg)](https://greenkeeper.io/)
+
 > Help construct css on flexbox
 
 ## Build Setup
