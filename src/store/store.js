@@ -5,12 +5,18 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     container: {
+      name: 'Main',
       type: 'div',
-      name: 'main',
+      classes: [
+        'main'
+      ],
       styles: [
         {display: 'flex'}
       ],
-      childs: []
+      childs: [
+        {name: 'Example 1', type: 'div'},
+        {name: 'Example 2', type: 'div'}
+      ]
     }
   }
 })

@@ -1,18 +1,13 @@
 <template>
-  <div class="constructor bordered">
+  <div class="constructor">
     <h3>Change options in constructor</h3>
   </div>
 </template>
 
 <script>
-import { hexGen } from '@/utils'
 
 export default {
-  name: 'TheConstructor',
-
-  mounted () {
-    (() => console.log(`TheConstructor -> color will mount: ${hexGen()}`))()
-  }
+  name: 'TheConstructor'
 }
 </script>
 
@@ -21,6 +16,6 @@ export default {
     display: flex;
     justify-content: center;
     flex-basis: 100%;
-    padding: 0px 10px;
+    background-color: lightslategray;
   }
 </style>

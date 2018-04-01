@@ -1,7 +1,13 @@
 <template>
-  <div class="preview bordered">
-    <h3>This is preview</h3>
-    <PreviewBlock />
+  <div class="preview">
+    <div class="preview__header">
+      <h3>This is preview</h3>
+    </div>
+    <div class="preview__content">
+      <PreviewBlock
+        :structure="structure"
+      />
+    </div>
   </div>
 </template>
 
@@ -13,6 +19,12 @@ export default {
 
   components: {
     PreviewBlock
+  },
+
+  computed: {
+    structure () {
+      return this.$store.state.container
+    }
   }
 }
 </script>
@@ -21,7 +33,13 @@ export default {
   .preview {
     display: flex;
     flex-basis: 100%;
-    padding: 0px 10px;
+    flex-direction: column;
+    align-items: stretch;
+    background-color: lightgray;
+  }
+
+  .preview__header {
+    display: flex;
     justify-content: center;
   }
 </style>

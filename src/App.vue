@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bordered">
+  <div id="app">
       <ThePreview />
       <TheConstructor />
   </div>
@@ -23,12 +23,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;
-  flex-flow: row;
   justify-content: center;
-  flex-basis: 95%;
-}
-
-.bordered {
-  border: 1px gray dotted;
+  flex-basis: 99%;
 }
 </style>
