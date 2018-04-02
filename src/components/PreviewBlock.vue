@@ -12,41 +12,41 @@ export default {
   },
 
   methods: {
-    mixStyleColor: styles => (
-      styles ? [...styles, {'background-color': hexGen()}] : {'background-color': hexGen()}
-    )
+    mixStyleColor: styles =>
+      styles
+        ? [...styles, { 'background-color': hexGen() }]
+        : { 'background-color': hexGen() },
+
+    renderName (name) {
+      return !name ? null : this.$createElement('span', name)
+    },
+
+    renderChilds (childs) {
+      return !childs
+        ? null
+        : childs.map(child =>
+          this.$createElement(
+            child.type,
+            {
+              style: this.mixStyleColor(child.styles),
+              class: child.classes
+            },
+            [this.renderName(child.name), this.renderChilds(child.childs)]
+          )
+        )
+    }
   },
 
   render (createElement) {
-    const { type, name, classes, styles, childs } = this.structure
+    const { type, classes, styles, childs } = this.structure
 
-    const renderChilds = childs => (
-      !childs ? null : childs.map(child => createElement(
-        child.type,
-        {
-          style: this.mixStyleColor(child.styles),
-          class: child.classes
-        },
-        [
-          renderName(child.name),
-          renderChilds(child.childs)
-        ]
-      ))
-    )
-
-    const renderName = name => (
-      !name ? null : createElement('span', name)
-    )
-
-    return createElement(type,
+    return createElement(
+      type,
       {
         style: this.mixStyleColor(styles),
         class: classes
       },
-      [
-        renderName(name),
-        renderChilds(childs)
-      ]
+      [this.renderChilds(childs)]
     )
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="preview">
     <div class="preview__header">
-      <h3>This is preview</h3>
+      This is preview, for edit use Constructor
     </div>
     <div class="preview__content">
       <PreviewBlock
@@ -41,5 +41,7 @@ export default {
   .preview__header {
     display: flex;
     justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
   }
 </style>
