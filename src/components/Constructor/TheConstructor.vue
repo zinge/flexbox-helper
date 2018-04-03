@@ -3,17 +3,23 @@
     <div class="constructor__header">
       This is constructor, change structure
     </div>
-    <ConstructorList />
+    <ConstructorItem :container="structure"/>
   </div>
 </template>
 
 <script>
-import ConstructorList from './ConstructorList.vue'
+import ConstructorItem from './Item/TheItem.vue'
 export default {
   name: 'TheConstructor',
 
   components: {
-    ConstructorList
+    ConstructorItem
+  },
+
+  computed: {
+    structure () {
+      return this.$store.state.container
+    }
   }
 }
 </script>

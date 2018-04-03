@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-      <ThePreview />
-      <TheConstructor />
+      <Preview />
+      <Constructor />
   </div>
 </template>
 
 <script>
-import ThePreview from './components/ThePreview.vue'
-import TheConstructor from './components/TheConstructor.vue'
+import Preview from '@/components/Preview/ThePreview.vue'
+import Constructor from '@/components/Constructor/TheConstructor.vue'
 export default {
   name: 'app',
   components: {
-    ThePreview,
-    TheConstructor
+    Preview,
+    Constructor
   }
 }
 </script>
