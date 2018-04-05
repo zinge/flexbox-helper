@@ -38,5 +38,7 @@ export default {
     justify-content: center;
     font-size: 24px;
     font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 1px solid;
   }
 </style>

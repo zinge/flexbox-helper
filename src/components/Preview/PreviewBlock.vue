@@ -1,5 +1,4 @@
 <script>
-import { hexGen } from '@/utils'
 
 export default {
   name: 'PreviewBlock',
@@ -12,11 +11,6 @@ export default {
   },
 
   methods: {
-    mixStyleColor: styles =>
-      styles
-        ? [...styles, { 'background-color': hexGen() }]
-        : { 'background-color': hexGen() },
-
     renderName (name) {
       return !name ? null : this.$createElement('span', name)
     },
@@ -28,7 +22,7 @@ export default {
           this.$createElement(
             child.type,
             {
-              style: this.mixStyleColor(child.styles),
+              style: child.styles,
               class: child.classes
             },
             [this.renderName(child.name), this.renderChilds(child.childs)]
@@ -43,7 +37,7 @@ export default {
     return createElement(
       type,
       {
-        style: this.mixStyleColor(styles),
+        style: styles,
         class: classes
       },
       [this.renderChilds(childs)]

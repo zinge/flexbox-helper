@@ -1,16 +1,13 @@
 <template>
-  <div class="constructor-item">
-    <div class="item__header" @click="toggleOpened">
-      <div class="item__header__arrow">{{opened ? 'V' : '>>' }}</div>
-      <div class="item__header__title">{{container.name}}</div>
-    </div>
-    <div class="item__content" v-if="opened">
-      <template v-if="hasOwnArray('classes')">
-        <ItemClasses :classes="container.classes"/>
-      </template>
-      <template v-if="hasOwnArray('styles')">
-        <ItemStyles :styles="container.styles"/>
-      </template>
+  <div class="constructor__item">
+    <ItemHeader @clickHeader="toggleOpened"
+      :isOpened="isOpened"
+      :itemName="container.name"
+      :itemColor="itemColor"/>
+    <div class="item__content" v-if="isOpened">
+      <ItemClasses :classes="container.classes"/>
+      <ItemStyles :styles="container.styles"/>
+      <ItemActions/>
       <template v-if="hasOwnArray('childs')">
         <constructor-item
           v-for="(child, index) in container.childs"
@@ -24,11 +21,13 @@
 <script>
 import ItemClasses from './ItemClasses.vue'
 import ItemStyles from './ItemStyles.vue'
+import ItemActions from './Actions/TheActions.vue'
+import ItemHeader from './ItemHeader.vue'
 export default {
   name: 'ConstructorItem',
 
   components: {
-    ItemClasses, ItemStyles
+    ItemClasses, ItemStyles, ItemActions, ItemHeader
   },
 
   props: {
@@ -40,42 +39,40 @@ export default {
 
   data () {
     return {
-      opened: false
+      isOpened: false
     }
   },
 
   methods: {
     toggleOpened () {
-      this.opened = !this.opened
+      this.isOpened = !this.isOpened
     },
     hasOwnArray (name) {
       return this.container.hasOwnProperty(name) &&
         Array.isArray(this.container[name])
     }
+  },
+
+  computed: {
+    itemColor () {
+      return this.container.styles.find(el => el.hasOwnProperty('background-color'))
+    }
   }
 }
 </script>
 <style>
-  .constructor-item {
+  .constructor__item {
     display: flex;
     flex-direction: column;
     align-content: stretch;
+    border: 1px solid;
+    border-radius: 3px;
+    margin: 5px;
+    padding: 5px;
   }
 
-  .item__header {
+  .item__content {
     display: flex;
-    cursor: pointer;
-  }
-
-  .item__header__arrow {
-    display: flex;
-    color: aqua;
-    padding-right: 10px;
-  }
-
-  .item__header__title {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+    flex-direction: column;
   }
 </style>

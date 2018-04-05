@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { hexGen } from '@/utils'
 
 Vue.use(Vuex)
 export default new Vuex.Store({
@@ -11,11 +12,30 @@ export default new Vuex.Store({
         'main'
       ],
       styles: [
-        {display: 'flex'}
+        {display: 'flex'},
+        {'background-color': hexGen()}
       ],
       childs: [
-        {name: 'Example 1', type: 'div'},
-        {name: 'Example 2', type: 'div'}
+        {
+          name: 'Example 1',
+          type: 'div',
+          classes: [
+            'main__example1'
+          ],
+          styles: [
+            {'background-color': hexGen()}
+          ]
+        },
+        {
+          name: 'Example 2',
+          type: 'div',
+          classes: [
+            'main__example2'
+          ],
+          styles: [
+            {'background-color': hexGen()}
+          ]
+        }
       ]
     }
   }
