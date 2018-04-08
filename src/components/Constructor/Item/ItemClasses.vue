@@ -33,7 +33,6 @@ export default {
 <style>
   .constructor__item__classes {
     border: 1px solid;
-    border-radius: 3px;
     margin: 5px;
     padding: 5px;
     display: flex;

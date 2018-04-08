@@ -1,5 +1,5 @@
 <template>
-  <div class="action__button" :class="classModifier"> {{title}} </div>
+  <div class="action__button" :class="classModifier" @click="actionEmit"> {{title}} </div>
 </template>
 <script>
 export default {
@@ -18,8 +18,16 @@ export default {
   },
 
   computed: {
-    classModifier (modifier) {
+    classModifier () {
       return `action__button--${this.action}`
+    }
+  },
+
+  methods: {
+    actionEmit () {
+      this.$emit('actionSelected', {
+        action: this.action
+      })
     }
   }
 }
@@ -27,11 +35,11 @@ export default {
 <style>
   .action__button {
     border: 1px solid;
-    border-radius: 3px;
     margin: 5px;
     padding: 0 5px;
     display: flex;
     justify-content: center;
+    cursor: pointer;
   }
 
   .action__button--add {

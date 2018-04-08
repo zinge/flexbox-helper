@@ -1,18 +1,19 @@
 <template>
   <div class="constructor__item">
-    <ItemHeader @clickHeader="toggleOpened"
+    <ItemHeader @openHeader="toggleOpened"
       :isOpened="isOpened"
-      :itemName="container.name"
-      :itemColor="itemColor"/>
+      :name="container.name"
+      :color="getColor"/>
     <div class="item__content" v-if="isOpened">
       <ItemClasses :classes="container.classes"/>
       <ItemStyles :styles="container.styles"/>
-      <ItemActions/>
-      <template v-if="hasOwnArray('childs')">
+      <ItemActions :path="path"/>
+      <template v-if="hasChilds">
         <constructor-item
           v-for="(child, index) in container.childs"
           :key="index"
           :container="child"
+          :path="childPath(child.name)"
         />
       </template>
     </div>
@@ -34,6 +35,10 @@ export default {
     container: {
       type: Object,
       required: true
+    },
+    path: {
+      type: Array,
+      required: true
     }
   },
 
@@ -47,14 +52,17 @@ export default {
     toggleOpened () {
       this.isOpened = !this.isOpened
     },
-    hasOwnArray (name) {
-      return this.container.hasOwnProperty(name) &&
-        Array.isArray(this.container[name])
+    hasChilds () {
+      return this.container.hasOwnProperty('childs') &&
+        Array.isArray(this.container.childs)
+    },
+    childPath (child) {
+      return [...this.path, child]
     }
   },
 
   computed: {
-    itemColor () {
+    getColor () {
       return this.container.styles.find(el => el.hasOwnProperty('background-color'))
     }
   }
@@ -66,7 +74,6 @@ export default {
     flex-direction: column;
     align-content: stretch;
     border: 1px solid;
-    border-radius: 3px;
     margin: 5px;
     padding: 5px;
   }

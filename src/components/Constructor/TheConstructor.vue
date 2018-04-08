@@ -3,7 +3,7 @@
     <div class="constructor__header">
       This is constructor, change structure
     </div>
-    <ConstructorItem :container="structure"/>
+    <ConstructorItem :container="structure" :path="path"/>
   </div>
 </template>
 
@@ -19,6 +19,10 @@ export default {
   computed: {
     structure () {
       return this.$store.state.container
+    },
+
+    path () {
+      return [this.structure.name]
     }
   }
 }
