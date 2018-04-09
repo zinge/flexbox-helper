@@ -18,7 +18,7 @@ export default {
 
   computed: {
     structure () {
-      return this.$store.state.container
+      return this.$store.state.childs[0]
     },
 
     path () {

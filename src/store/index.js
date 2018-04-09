@@ -5,7 +5,7 @@ import { hexGen } from '@/utils'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    container: {
+    childs: [{
       name: 'Main',
       type: 'div',
       classes: [
@@ -37,6 +37,41 @@ export default new Vuex.Store({
           ]
         }
       ]
+    }]
+  },
+
+  mutations: {
+    changeName (state, payload) {
+      const item = getChild(state.childs, payload.path)
+      item.name = payload.name
+    },
+
+    addChild (state, payload) {
+      const item = getChild(state.childs, payload.path)
+      item.childs = [
+        ...item.childs,
+        {
+          name: payload.name,
+          type: payload.type,
+          classes: [payload.class],
+          styles: [{'background-color': hexGen()}]
+        }
+      ]
+    },
+
+    delItem (state, payload) {
+      const itemParent = getChild(state.childs, payload.path.slice(0, -1))
+      itemParent.childs = [
+        ...itemParent.childs.filter(child => child.name !== payload.path[payload.path.length - 1])
+      ]
     }
   }
 })
+
+const getChild = (childs, path) => {
+  const currentItem = childs.find(child => child.name === path[0])
+  if (path.length === 1) {
+    return currentItem
+  }
+  return getChild(currentItem.childs, path.slice(1))
+}

@@ -4,7 +4,7 @@ export default {
   name: 'PreviewBlock',
 
   props: {
-    structure: {
+    container: {
       type: Object,
       required: true
     }
@@ -18,21 +18,21 @@ export default {
     renderChilds (childs) {
       return !childs
         ? null
-        : childs.map(child =>
+        : childs.map(item =>
           this.$createElement(
-            child.type,
+            item.type,
             {
-              style: child.styles,
-              class: child.classes
+              style: item.styles,
+              class: item.classes
             },
-            [this.renderName(child.name), this.renderChilds(child.childs)]
+            [this.renderName(item.name), this.renderChilds(item.childs)]
           )
         )
     }
   },
 
   render (createElement) {
-    const { type, classes, styles, childs } = this.structure
+    const { type, classes, styles, childs } = this.container
 
     return createElement(
       type,

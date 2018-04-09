@@ -2,21 +2,24 @@
   <div class="actions__helper" :class="classModifier">
     <div class="actions__helper__wrapper">
       <div class="action__add" v-if="helper === 'add'">
-        create child with name:
+        create child, name:
         <input class="helper__input" type="text"
-          v-model="create.name" placeholder="required"
-          ref="child-name">
-         and class: <input class="helper__input" type="text"
-          v-model="create.class" placeholder="required"
-          ref="child-class">
+          v-model="childName"
+          ref="childName">
+          class: <input class="helper__input" type="text"
+            v-model="childClass"
+            ref="childClass">
+          type: <input class="helper__input" type="text"
+            v-model="childType"
+            ref="childType">
       </div>
       <div class="action__del" v-if="helper === 'del'">
         are you sure? force delete all childs?
       </div>
       <div class="action__edit" v-if="helper === 'edit'">
         new name: <input class="helper__input" type="text"
-          v-model="edit.name" placeholder="required"
-          ref="edit-name">
+          v-model="newName"
+          ref="newName">
       </div>
     </div>
     <div class="actions__helper__buttons">
@@ -37,14 +40,10 @@ export default {
   },
 
   data: () => ({
-    create: {
-      name: undefined,
-      class: undefined
-    },
-
-    edit: {
-      name: undefined
-    }
+    childName: undefined,
+    childClass: undefined,
+    childType: undefined,
+    newName: undefined
   }),
 
   methods: {
@@ -52,27 +51,42 @@ export default {
       this.$emit('helperSelected', {type: 'cancel'})
     },
     helperYes () {
-      if (this.helper === 'del') {
-        this.$emit('helperSelected', {type: 'yes', action: 'del'})
-      } else if (this.helper === 'edit') {
-        if (!this.edit.name) {
-          this.$refs['edit-name'].focus()
-        } else {
-          this.$emit('helperSelected',
-            {type: 'yes', action: 'edit', name: this.edit.name}
-          )
-        }
-      } else {
-        if (!this.create.name) {
-          this.$refs['child-name'].focus()
-        } else if (!this.create.class) {
-          this.$refs['child-class'].focus()
-        } else {
-          this.$emit('helperSelected',
-            {type: 'yes', action: 'add', name: this.create.name, class: this.create.class}
-          )
-        }
+      switch (this.helper) {
+        case 'del':
+          this.$emit('helperSelected', {type: 'yes', action: 'del'})
+          break
+
+        case 'edit':
+          if (!this.focusInput('newName')) {
+            this.$emit('helperSelected',
+              {type: 'yes', action: 'edit', name: this.newName}
+            )
+          }
+          break
+
+        default:
+          if (!this.focusInput('childName') && !this.focusInput('childClass')) {
+            this.$emit('helperSelected', {
+              type: 'yes',
+              action: 'add',
+              childName: this.childName,
+              childClass: this.childClass,
+              childType: this.childType
+            })
+          }
+          break
       }
+    },
+    focusInput (name) {
+      if (!this[name]) {
+        const target = this.$refs[name]
+        target.focus()
+        target.style.backgroundColor = 'deeppink'
+        target.placeholder = 'required'
+        return true
+      }
+
+      return false
     }
   },
 

@@ -4,7 +4,7 @@
     <div class="actions__wrapper" v-if="!showHelper">
       <ActionButton action="add" title="add child" @actionSelected="execAction"/>
       <ActionButton action="edit" title="change name" @actionSelected="execAction"/>
-      <ActionButton action="del" title="del this" @actionSelected="execAction"/>
+      <ActionButton v-if="!isMain" action="del" title="del this" @actionSelected="execAction"/>
     </div>
   </div>
 </template>
@@ -38,11 +38,42 @@ export default {
     },
 
     execHelper (payload) {
-      if (payload.type !== 'cancel') {
-        console.log('helperBack :', payload)
+      if (payload.type === 'yes') {
+        switch (payload.action) {
+          case 'del':
+            this.$store.commit('delItem', {
+              path: this.path
+            })
+            break
+
+          case 'add':
+            this.$store.commit('addChild', {
+              path: this.path,
+              name: payload.childName,
+              class: payload.childClass,
+              type: payload.childType
+            })
+            break
+
+          case 'edit':
+            this.$store.commit('changeName', {
+              path: this.path,
+              name: payload.name
+            })
+            break
+
+          default:
+            break
+        }
       }
 
       this.showHelper = false
+    }
+  },
+
+  computed: {
+    isMain () {
+      return this.path.length === 1
     }
   }
 }

@@ -5,7 +5,7 @@
     </div>
     <div class="preview__content">
       <PreviewBlock
-        :structure="structure"
+        :container="structure"
       />
     </div>
   </div>
@@ -23,7 +23,7 @@ export default {
 
   computed: {
     structure () {
-      return this.$store.state.container
+      return this.$store.state.childs[0]
     }
   }
 }
