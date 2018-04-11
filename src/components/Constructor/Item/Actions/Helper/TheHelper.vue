@@ -5,13 +5,13 @@
         create child, name:
         <input class="helper__input" type="text"
           v-model="childName"
-          ref="childName">
+          ref="childName" size="10">
           class: <input class="helper__input" type="text"
             v-model="childClass"
-            ref="childClass">
+            ref="childClass" size="10">
           type: <input class="helper__input" type="text"
             v-model="childType"
-            ref="childType">
+            ref="childType" size="10">
       </div>
       <div class="action__del" v-if="helper === 'del'">
         are you sure? force delete all childs?
@@ -19,7 +19,7 @@
       <div class="action__edit" v-if="helper === 'edit'">
         new name: <input class="helper__input" type="text"
           v-model="newName"
-          ref="newName">
+          ref="newName" size="10">
       </div>
     </div>
     <div class="actions__helper__buttons">
@@ -42,7 +42,7 @@ export default {
   data: () => ({
     childName: undefined,
     childClass: undefined,
-    childType: undefined,
+    childType: 'div',
     newName: undefined
   }),
 

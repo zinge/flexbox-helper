@@ -15,28 +15,7 @@ export default new Vuex.Store({
         {display: 'flex'},
         {'background-color': hexGen()}
       ],
-      childs: [
-        {
-          name: 'Example 1',
-          type: 'div',
-          classes: [
-            'main__example1'
-          ],
-          styles: [
-            {'background-color': hexGen()}
-          ]
-        },
-        {
-          name: 'Example 2',
-          type: 'div',
-          classes: [
-            'main__example2'
-          ],
-          styles: [
-            {'background-color': hexGen()}
-          ]
-        }
-      ]
+      childs: []
     }]
   },
 
@@ -54,7 +33,8 @@ export default new Vuex.Store({
           name: payload.name,
           type: payload.type,
           classes: [payload.class],
-          styles: [{'background-color': hexGen()}]
+          styles: [{'background-color': hexGen()}],
+          childs: []
         }
       ]
     },
@@ -63,6 +43,14 @@ export default new Vuex.Store({
       const itemParent = getChild(state.childs, payload.path.slice(0, -1))
       itemParent.childs = [
         ...itemParent.childs.filter(child => child.name !== payload.path[payload.path.length - 1])
+      ]
+    },
+
+    addParam (state, payload) {
+      const item = getChild(state.childs, payload.path)
+      item[payload.name] = [
+        ...item[payload.name],
+        payload.newParam
       ]
     }
   }

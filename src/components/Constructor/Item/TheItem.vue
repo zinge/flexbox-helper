@@ -5,8 +5,8 @@
       :name="container.name"
       :color="getColor"/>
     <div class="item__content" v-if="isOpened">
-      <ItemClasses :classes="container.classes"/>
-      <ItemStyles :styles="container.styles"/>
+      <ItemParams :params="container.classes" name="classes" :path="path"/>
+      <ItemParams :params="container.styles" name="styles" :path="path"/>
       <ItemActions :path="path"/>
       <template v-if="hasChilds">
         <constructor-item
@@ -20,15 +20,14 @@
   </div>
 </template>
 <script>
-import ItemClasses from './ItemClasses.vue'
-import ItemStyles from './ItemStyles.vue'
 import ItemActions from './Actions/TheActions.vue'
+import ItemParams from './Params/TheParams.vue'
 import ItemHeader from './ItemHeader.vue'
 export default {
   name: 'ConstructorItem',
 
   components: {
-    ItemClasses, ItemStyles, ItemActions, ItemHeader
+    ItemActions, ItemHeader, ItemParams
   },
 
   props: {
