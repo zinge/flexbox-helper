@@ -74,7 +74,8 @@
     "ignore": [
       "webpack",
       "webpack-dev-server",
-      "optimize-css-assets-webpack-plugin"
+      "optimize-css-assets-webpack-plugin",
+      "vue-loader"
     ]
   }
 }
