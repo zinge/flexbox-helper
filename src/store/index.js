@@ -12,8 +12,8 @@ export default new Vuex.Store({
         'main'
       ],
       styles: [
-        {display: 'flex'},
-        {'background-color': hexGen()}
+        { display: 'flex' },
+        { 'background-color': hexGen() }
       ],
       childs: []
     }]
@@ -33,7 +33,7 @@ export default new Vuex.Store({
           name: payload.name,
           type: payload.type,
           classes: [payload.class],
-          styles: [{'background-color': hexGen()}],
+          styles: [{ 'background-color': hexGen() }],
           childs: []
         }
       ]

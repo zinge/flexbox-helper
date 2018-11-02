@@ -48,18 +48,18 @@ export default {
 
   methods: {
     helperNo () {
-      this.$emit('helperSelected', {type: 'cancel'})
+      this.$emit('helperSelected', { type: 'cancel' })
     },
     helperYes () {
       switch (this.helper) {
         case 'del':
-          this.$emit('helperSelected', {type: 'yes', action: 'del'})
+          this.$emit('helperSelected', { type: 'yes', action: 'del' })
           break
 
         case 'edit':
           if (!this.focusInput('newName')) {
             this.$emit('helperSelected',
-              {type: 'yes', action: 'edit', name: this.newName}
+              { type: 'yes', action: 'edit', name: this.newName }
             )
           }
           break
