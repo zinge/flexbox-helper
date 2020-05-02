@@ -21,12 +21,21 @@ export default new Vuex.Store({
                 hash: getHash(),
                 childs: []
             }
-        ]
+        ],
+        showModal: false
     },
 
     mutations: {
         toggleMenu(state) {
             return state.menuOpened = !state.menuOpened
+        },
+
+        closeModal(state) {
+            return state.showModal = false
+        },
+
+        openModal(state) {
+            return state.showModal = true
         }
     }
 })
