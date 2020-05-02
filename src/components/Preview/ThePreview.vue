@@ -1,49 +1,29 @@
 <template>
-  <div class="preview">
-    <div class="preview__header">
-      This is preview, for edit use Constructor
-    </div>
-    <div class="preview__content">
-      <PreviewBlock
-        :container="structure"
-      />
-    </div>
+  <div>
+    <PreviewContent :container="main" />
   </div>
 </template>
 
 <script>
-import PreviewBlock from './PreviewBlock.vue'
+import PreviewContent from "./PreviewContent";
+import { mapState } from "vuex";
+
+import {INITIAL_CHILD} from '@/constants'
 
 export default {
-  name: 'ThePreview',
+  name: "Preview",
 
   components: {
-    PreviewBlock
+    PreviewContent
   },
 
-  computed: {
-    structure () {
-      return this.$store.state.childs[0]
+  computed: mapState({
+    main(state) {
+      return state.childs[INITIAL_CHILD];
     }
-  }
-}
+  })
+};
 </script>
 
 <style>
-  .preview {
-    display: flex;
-    flex-basis: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    background-color: lightgray;
-  }
-
-  .preview__header {
-    display: flex;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: bold;
-    padding: 5px 0;
-    border-bottom: 1px solid;
-  }
 </style>

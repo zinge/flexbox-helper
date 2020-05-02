@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Menu from "./components/TheMenu";
-import Hambureger from "./components/TheHamburger";
-import Preview from "@/components/ThePreview";
+import Menu from "@/components/Menu/TheMenu";
+import Hambureger from "@/components/TheHamburger";
+import Preview from "@/components/Preview/ThePreview";
 
 export default {
   name: "App",

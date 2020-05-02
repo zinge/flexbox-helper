@@ -4,7 +4,7 @@
 
 <script>
 import { mapState } from "vuex";
-import ConstructorItem from "./ConstructorItem";
+import ConstructorItem from "./ConstructorItem/TheConstructorItem";
 
 import { INITIAL_CHILD } from "@/constants";
 

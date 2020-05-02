@@ -8,7 +8,7 @@
 <script>
 import { mapState } from "vuex";
 
-import Constructor from './TheConstructor'
+import Constructor from './Constructor/TheConstructor'
 
 export default {
   name: "Menu",

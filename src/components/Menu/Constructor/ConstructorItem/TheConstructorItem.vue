@@ -1,5 +1,5 @@
 <template>
-  <div class="constructor__item">
+  <div class="constructor__item" :style="borderColor">
     <ItemHeader
       @openHeader="toggleOpened"
       :isOpened="isOpened"
@@ -55,6 +55,11 @@ export default {
     color() {
       return {
         [BACKGROUND_COLOR]: this.container.styles[BACKGROUND_COLOR]
+      };
+    },
+    borderColor() {
+      return {
+        borderColor: this.container.styles[BACKGROUND_COLOR]
       };
     }
   }
