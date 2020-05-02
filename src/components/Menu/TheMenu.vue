@@ -41,7 +41,7 @@ export default {
   align-items: stretch;
 }
 
-.is-open {
+.menu.is-open {
   visibility: visible;
   right: 0;
 }

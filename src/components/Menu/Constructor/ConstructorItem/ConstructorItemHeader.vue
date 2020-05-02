@@ -6,7 +6,7 @@
       <div class="item__header__title">{{name}}</div>
     </div>
     <div class="right">
-      <ConstuctorActions />
+      <ConstuctorActions :setModalPath="setModalPath" :root="root" :setShowDelete="setShowDelete"/>
     </div>
   </div>
 </template>
@@ -31,11 +31,28 @@ export default {
     isOpened: {
       type: Boolean,
       required: true
+    },
+    setModalPath: {
+      type: Function,
+      required: true
+    },
+    hasChilds: {
+      type: Boolean
+    },
+
+    root: {
+      type: Boolean,
+      required: true
+    },
+
+    setShowDelete: {
+      type: Function,
+      required: true
     }
   },
   methods: {
     headerEmit() {
-      this.$emit("openHeader");
+      this.hasChilds && this.$emit("openHeader");
     }
   }
 };

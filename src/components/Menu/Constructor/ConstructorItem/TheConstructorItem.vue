@@ -1,31 +1,51 @@
 <template>
   <div class="constructor__item" :style="borderColor">
+    <DeleteHelper
+      v-if="!root"
+      :path="path"
+      :showDelete="showDelete"
+      @setShowDelete="setShowDelete"
+      @itemDeleted="$emit('childDeleted')"
+    />
     <ItemHeader
       @openHeader="toggleOpened"
       :isOpened="isOpened"
       :name="container.name"
       :color="color"
+      :setModalPath="setModalPath"
+      :hasChilds="hasChilds"
+      :setShowDelete="setShowDelete"
+      :root="root"
     />
     <div class="item__content" v-if="isOpened">
-      <span>Constuctor Item</span>
+      <ConstructorItem
+        v-for="(child, index) in container.childs"
+        :key="index"
+        :container="child"
+        :path="childPath(child.hash)"
+        @childDeleted="closeParentHeader"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import ItemHeader from "./ConstructorItemHeader";
+import DeleteHelper from "./ConstructorItemDeleteHelper";
 import { BACKGROUND_COLOR } from "@/constants";
 
 export default {
   name: "ConstructorItem",
 
   components: {
-    ItemHeader
+    ItemHeader,
+    DeleteHelper
   },
 
   data() {
     return {
-      isOpened: false
+      isOpened: false,
+      showDelete: false
     };
   },
 
@@ -38,6 +58,11 @@ export default {
     path: {
       type: Array,
       required: true
+    },
+
+    root: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -46,8 +71,20 @@ export default {
       this.isOpened = !this.isOpened;
     },
 
-    hasChilds() {
-      return this.container.childs.length > 1;
+    childPath(hash) {
+      return [...this.path, hash];
+    },
+
+    setModalPath() {
+      this.$store.commit("setModalPath", this.path);
+    },
+
+    setShowDelete(payload) {
+      this.showDelete = payload || false;
+    },
+
+    closeParentHeader() {
+      !this.hasChilds && this.toggleOpened()
     }
   },
 
@@ -61,6 +98,9 @@ export default {
       return {
         borderColor: this.container.styles[BACKGROUND_COLOR]
       };
+    },
+    hasChilds() {
+      return this.container.childs.length > 0;
     }
   }
 };
@@ -73,9 +113,16 @@ export default {
   align-content: stretch;
   border: 1px solid;
   padding: 4px;
+  position: relative;
 }
+
 .item__content {
   display: flex;
   flex-direction: column;
+  margin-top: 0.5em;
+}
+
+.item__content > .constructor__item + .constructor__item {
+  margin-top: 0.5em;
 }
 </style>
