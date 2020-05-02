@@ -1,7 +1,4 @@
 # flexbox-helper
-[![Greenkeeper badge](https://badges.greenkeeper.io/zinge/flexboxHelper.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/zinge/flexboxHelper.svg?branch=dev)](https://travis-ci.org/zinge/flexboxHelper)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/59c6461e7bf54431b3cbaebd6f34999d)](https://www.codacy.com/app/s.a.zingelshuher/flexboxHelper?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zinge/flexboxHelper&amp;utm_campaign=Badge_Grade)
 
 ## Project setup
 ```
@@ -16,11 +13,6 @@ npm run serve
 ### Compiles and minifies for production
 ```
 npm run build
-```
-
-### Run your tests
-```
-npm run test
 ```
 
 ### Lints and fixes files

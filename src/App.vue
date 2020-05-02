@@ -1,29 +1,31 @@
 <template>
   <div id="app">
-      <Preview />
-      <Constructor />
+    <Preview />
+    <Menu />
+    <Hambureger />
   </div>
 </template>
 
 <script>
-import Preview from '@/components/Preview/ThePreview.vue'
-import Constructor from '@/components/Constructor/TheConstructor.vue'
+import Menu from "./components/TheMenu";
+import Hambureger from "./components/TheHamburger";
+import Preview from "@/components/ThePreview";
+
 export default {
-  name: 'app',
+  name: "App",
   components: {
-    Preview,
-    Constructor
+    Menu,
+    Hambureger,
+    Preview
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
-  flex-basis: 99%;
+  font-size: 1rem;
 }
 </style>
