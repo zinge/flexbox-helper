@@ -1,12 +1,14 @@
 <template>
-  <PreviewContent :container="main" root />
+  <div>
+    <PreviewContent :container="main" />
+  </div>
 </template>
 
 <script>
 import PreviewContent from "./PreviewContent";
 import { mapState } from "vuex";
 
-import { INITIAL_CHILD } from "@/constants";
+import {INITIAL_CHILD} from '@/constants'
 
 export default {
   name: "Preview",
