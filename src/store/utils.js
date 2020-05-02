@@ -8,9 +8,7 @@ export const getChild = (childs, path) => {
 }
 
 export const getHash = () => {
-    return Date.now() +  '_' + Math.random().toString(36).substr(2, 9);
+    return Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
 
 export const hexGen = () => `#${Math.random().toString(16).slice(2, 8)}`
-
-
