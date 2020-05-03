@@ -7,35 +7,35 @@ import { BACKGROUND_COLOR } from '@/constants'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        menuOpened: false,
-        childs: [
-            {
-                name: 'Main',
-                type: 'div',
-                classes: ['root-element'],
-                styles: {
-                    display: 'flex',
-                    [BACKGROUND_COLOR]: hexGen()
-                },
-                hash: getHash(),
-                childs: []
-            }
-        ],
-        showModal: false
+  state: {
+    menuOpened: false,
+    childs: [
+      {
+        name: 'Main',
+        type: 'div',
+        classes: ['root-element'],
+        styles: {
+          display: 'flex',
+          [BACKGROUND_COLOR]: hexGen()
+        },
+        hash: getHash(),
+        childs: []
+      }
+    ],
+    showModal: ''
+  },
+
+  mutations: {
+    toggleMenu(state) {
+      return state.menuOpened = !state.menuOpened
     },
 
-    mutations: {
-        toggleMenu(state) {
-            return state.menuOpened = !state.menuOpened
-        },
+    closeModal(state) {
+      return state.showModal = ''
+    },
 
-        closeModal(state) {
-            return state.showModal = false
-        },
-
-        openModal(state) {
-            return state.showModal = true
-        }
+    openModal(state, payload) {
+      return state.showModal = payload
     }
+  }
 })

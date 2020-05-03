@@ -1,7 +1,7 @@
 <template>
   <div class="item__actions">
-    <ExpandAction />
-    <ModifyAction />
+    <ExpandAction :openModal="openModal"/>
+    <ModifyAction :openModal="openModal"/>
     <DeleteAction />
   </div>
 </template>
@@ -18,6 +18,12 @@ export default {
     ExpandAction,
     ModifyAction,
     DeleteAction
+  },
+
+  methods: {
+    openModal(type) {
+      this.$store.commit("openModal", type);
+    }
   }
 };
 </script>
