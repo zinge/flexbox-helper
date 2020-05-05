@@ -1,42 +1,68 @@
 <template>
   <div class="expand__modal">
-    <ModalTemplate @close="closeModal">
-      <h3 slot="header">Expand modal</h3>
-      <form slot="body" id="expand-form" @submit="onSubmitHandler" class="expand__form">
+    <ModalTemplate>
+      <h3 slot="header">New child params</h3>
+      <form
+        slot="body"
+        id="expand-form"
+        @submit="onSubmitHandler"
+        class="expand__form"
+        @reset="onResetHandler"
+      >
         <p class="form__item">
-          <label for="name">Name:&nbsp;</label>
-          <input type="text" v-model="name" placeholder="input child name here" id="name" />
-        </p>
-        <p class="form__item">
-          <label for="classes">Classes:&nbsp;</label>
+          <label for="child-name">Name:&nbsp;</label>
           <input
             type="text"
-            v-model="computedClasses"
-            placeholder="input child classes here"
-            id="classes"
+            v-model="childName"
+            placeholder="input child name here"
+            id="child-name"
+            ref="childName"
+            @focus="e => onFocus(e, 'input child name here')"
           />
         </p>
         <p class="form__item">
-          <label for="styles">Styles:&nbsp;</label>
-          <textarea type="text" v-model="computedStyles" placeholder="input child styles here" id="styles" />
+          <label for="child-class">Class:&nbsp;</label>
+          <input
+            type="text"
+            v-model="childClass"
+            placeholder="input child class here"
+            id="child-class"
+            ref="childClass"
+            @focus="e => onFocus(e, 'input child class here')"
+          />
+        </p>
+        <p class="form__item">
+          <label for="child-type">Type:&nbsp;</label>
+          <input
+            type="text"
+            v-model="childType"
+            placeholder="input child type here"
+            id="child-type"
+            ref="childType"
+            @focus="e => onFocus(e, 'input child type here')"
+          />
         </p>
       </form>
-      <button slot="footer" type="submit" form="expand-form">Ok</button>
+      <template slot="footer">
+        <button type="reset" form="expand-form">Cancel</button>
+        <button type="submit" form="expand-form">Save</button>
+      </template>
     </ModalTemplate>
   </div>
 </template>
 
 <script>
 import ModalTemplate from "./ModalTemplate";
+import { ERROR_COLOR } from "@/constants";
 
 export default {
   name: "ExpandModal",
 
   data() {
     return {
-      name: "",
-      class: [],
-      styles: {}
+      childName: "",
+      childClass: "",
+      childType: "div"
     };
   },
 
@@ -55,33 +81,47 @@ export default {
     onSubmitHandler(e) {
       e.preventDefault();
 
-      console.log("data: ", {
-        name: this.name,
-        class: this.class,
-        styles: this.styles
-      });
-      this.closeModal();
-    }
-  },
+      if (this.validate()) {
+        this.$store.commit("addChild", {
+          name: this.childName,
+          class: this.childClass,
+          type: this.childType
+        });
 
-  computed: {
-    computedClasses: {
-      get() {
-        return this.class.join(", ");
-      },
-
-      set(value) {
-        this.class = value.split(/ ?, ?/).map(i => i.trim());
+        this.closeModal();
       }
     },
 
-    computedStyles: {
-      get() {
-        return JSON.stringify(this.styles)
-      },
+    onResetHandler(e) {
+      e.preventDefault();
 
-      set(value) {
-        this.styles = JSON.parse(value)
+      this.closeModal();
+    },
+
+    validate() {
+      const fields = ["childName", "childClass", "childType"];
+      const empty = fields.filter(field => !this[field]);
+
+      if (empty.length) {
+        empty.forEach(i => {
+          const target = this.$refs[i];
+
+          target.style.backgroundColor = ERROR_COLOR;
+          target.placeholder = "required";
+        });
+
+        return false;
+      }
+
+      return true;
+    },
+
+    onFocus(e, placeholder) {
+      const { target } = e;
+
+      if (target.style.backgroundColor === ERROR_COLOR) {
+        target.style.backgroundColor = "";
+        target.placeholder = placeholder;
       }
     }
   }
@@ -98,11 +138,18 @@ export default {
   margin: 0;
 }
 
-.form__item > textarea {
-  vertical-align: top;
-}
-
 .expand__form > .form__item + .form__item {
   margin-top: 0.5em;
+}
+
+.form__item > label {
+  display: inline-block;
+  width: 100px;
+}
+
+.form__item > input {
+  display: inline-block;
+  width: calc(100% - 100px);
+  box-sizing: border-box;
 }
 </style>

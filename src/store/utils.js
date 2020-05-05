@@ -1,5 +1,5 @@
 export const getChild = (childs, path) => {
-    const currentItem = childs.find(child => child.name === path[0])
+    const currentItem = childs.find(child => child.hash === path[0])
 
     if (path.length === 1) {
         return currentItem
@@ -12,3 +12,5 @@ export const getHash = () => {
 }
 
 export const hexGen = () => `#${Math.random().toString(16).slice(2, 8)}`
+
+

@@ -22,17 +22,18 @@ export default {
 
   computed: mapState({
     showExpandModal(state) {
-      return state.showModal === EXPAND_ACTION;
+      return state.modalName === EXPAND_ACTION;
     },
 
     showModifyModal(state) {
-      return state.showModal === MODIFY_ACTION;
+      return state.modalName === MODIFY_ACTION;
     }
   }),
 
   methods: {
     closeModal() {
-      this.$store.commit("closeModal");
+      this.$store.commit('setModalPath')
+      this.$store.commit("setModalName");
     }
   }
 };

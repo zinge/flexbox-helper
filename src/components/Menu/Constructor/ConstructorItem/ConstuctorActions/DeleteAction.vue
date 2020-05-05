@@ -19,9 +19,16 @@ export default {
     };
   },
 
+  props: {
+    execAction: {
+      type: Function,
+      required: true
+    }
+  },
+
   methods: {
-    onClickAction(payload) {
-      console.log("onClickAction", payload);
+    onClickAction() {
+      this.execAction(this.type);
     }
   }
 };

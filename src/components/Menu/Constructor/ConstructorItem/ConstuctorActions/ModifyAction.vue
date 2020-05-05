@@ -20,7 +20,7 @@ export default {
   },
 
   props: {
-    openModal: {
+    execAction: {
       type: Function,
       required: true
     }
@@ -28,7 +28,7 @@ export default {
 
   methods: {
     onClickAction(payload) {
-      this.openModal(payload);
+      this.execAction(payload);
     }
   }
 };

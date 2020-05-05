@@ -4,3 +4,6 @@ export const BACKGROUND_COLOR = 'background-color'
 export const MODIFY_ACTION = 'modify'
 export const EXPAND_ACTION = 'expand'
 export const DELETE_ACTION = 'del'
+
+export const ERROR_COLOR = 'lightpink'
+

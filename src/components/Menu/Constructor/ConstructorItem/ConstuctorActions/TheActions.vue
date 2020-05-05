@@ -1,8 +1,8 @@
 <template>
   <div class="item__actions">
-    <ExpandAction :openModal="openModal"/>
-    <ModifyAction :openModal="openModal"/>
-    <DeleteAction />
+    <ExpandAction :execAction="execAction" />
+    <ModifyAction :execAction="execAction" />
+    <DeleteAction v-if="!root" :execAction="execAction" />
   </div>
 </template>
 
@@ -10,6 +10,8 @@
 import ExpandAction from "./ExpandAction";
 import ModifyAction from "./ModifyAction";
 import DeleteAction from "./DeleteAction";
+
+import { DELETE_ACTION } from "@/constants";
 
 export default {
   name: "ItemActions",
@@ -20,9 +22,32 @@ export default {
     DeleteAction
   },
 
+  props: {
+    setModalPath: {
+      type: Function,
+      required: true
+    },
+
+    root: {
+      type: Boolean,
+      required: true
+    },
+
+    setShowDelete: {
+      type: Function,
+      required: true
+    }
+  },
+
   methods: {
-    openModal(type) {
-      this.$store.commit("openModal", type);
+    execAction(type) {
+      if (type === DELETE_ACTION) {
+        this.setShowDelete(true);
+        return
+      }
+
+      this.setModalPath();
+      this.$store.commit("setModalName", type);
     }
   }
 };

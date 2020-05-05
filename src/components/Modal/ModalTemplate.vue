@@ -65,6 +65,11 @@ export default {
 .modal-footer {
   display: flex;
   justify-content: flex-end;
+  margin-top: 0.5em;
+}
+
+.modal-footer button + button {
+  margin-left: 1em;
 }
 
 /*

@@ -1,56 +1,67 @@
+<template>
+  <component :is="type" :class="classes" :style="styles">
+    <template v-if="hasChilds">
+      <template v-for="(child, index) in childs">
+        <PreviewContent :container="child" :key="index" />
+      </template>
+    </template>
+
+    <template v-else>
+      <template v-if="root">
+        <span
+          class="empty-childs"
+        >This is empty `Main` element in tree. Add childs with constructor.</span>
+      </template>
+
+      <template v-else>{{name}}</template>
+    </template>
+  </component>
+</template>
 <script>
 export default {
   name: "PreviewContent",
+
   props: {
     container: {
       type: Object,
       required: true
-    }
-  },
-  methods: {
-    renderName(name) {
-      return !name ? null : this.$createElement("span", name);
     },
 
-    renderChilds(childs) {
-      return !childs
-        ? null
-        : childs.map(item =>
-            this.$createElement(
-              item.type,
-              {
-                style: item.styles,
-                class: item.classes
-              },
-              [this.renderName(item.name), this.renderChilds(item.childs)]
-            )
-          );
+    root: {
+      type: Boolean,
+      default: false
     }
   },
 
-  render(createElement) {
-    const { type, classes, styles, childs } = this.container;
+  computed: {
+    name() {
+      return this.container.name;
+    },
 
-    return createElement(
-      type,
-      {
-        style: styles,
-        class: classes
-      },
-      [
-        this.renderName(
-          childs.length > 1
-            ? ""
-            : "This is empty `Main` element in tree. Add childs with constructor."
-        ),
-        this.renderChilds(childs)
-      ]
-    );
+    type() {
+      return this.container.type;
+    },
+
+    styles() {
+      return this.container.styles;
+    },
+
+    classes() {
+      return this.container.classes;
+    },
+
+    childs() {
+      return this.container.childs;
+    },
+
+    hasChilds() {
+      return this.childs.length > 0
+    }
   }
 };
 </script>
 <style>
-.root-element > span {
+.root-element > .empty-childs {
   margin: 60px auto;
   font-size: 24px;
 }

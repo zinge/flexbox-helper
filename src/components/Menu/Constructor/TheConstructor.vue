@@ -1,5 +1,5 @@
 <template>
-  <ConstructorItem :container="main" :path="path" />
+  <ConstructorItem :container="main" :path="path" root />
 </template>
 
 <script>

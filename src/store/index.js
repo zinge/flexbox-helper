@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { hexGen, getHash } from './utils'
+import { hexGen, getHash, getChild } from './utils'
 import { BACKGROUND_COLOR } from '@/constants'
 
 Vue.use(Vuex)
@@ -22,7 +22,8 @@ export default new Vuex.Store({
         childs: []
       }
     ],
-    showModal: ''
+    modalName: '',
+    modalPath: []
   },
 
   mutations: {
@@ -30,12 +31,36 @@ export default new Vuex.Store({
       return state.menuOpened = !state.menuOpened
     },
 
-    closeModal(state) {
-      return state.showModal = ''
+    setModalName(state, payload) {
+      return state.modalName = payload || ""
     },
 
-    openModal(state, payload) {
-      return state.showModal = payload
-    }
+    setModalPath(state, payload) {
+      return state.modalPath = payload || []
+    },
+
+    addChild(state, payload) {
+      const item = getChild(state.childs, state.modalPath)
+
+      item.childs = [
+        ...item.childs,
+        {
+          name: payload.name,
+          type: payload.type,
+          classes: [payload.class],
+          styles: { [BACKGROUND_COLOR]: hexGen() },
+          hash: getHash(),
+          childs: [],
+        }
+      ]
+    },
+
+    delItem (state, payload) {
+      const itemParent = getChild(state.childs, payload.slice(0, -1))
+
+      itemParent.childs = [
+        ...itemParent.childs.filter(child => child.hash !== payload[payload.length - 1])
+      ]
+    },
   }
 })
