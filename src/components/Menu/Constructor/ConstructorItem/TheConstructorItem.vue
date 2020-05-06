@@ -1,10 +1,11 @@
 <template>
   <div class="constructor__item" :style="borderColor">
     <DeleteHelper
+      v-if="!root"
       :path="path"
       :showDelete="showDelete"
-      :setShowDelete="setShowDelete"
-      :toggleOpened="toggleOpened"
+      @setShowDelete="setShowDelete"
+      @itemDeleted="$emit('childDeleted')"
     />
     <ItemHeader
       @openHeader="toggleOpened"
@@ -22,6 +23,7 @@
         :key="index"
         :container="child"
         :path="childPath(child.hash)"
+        @childDeleted="closeParentHeader"
       />
     </div>
   </div>
@@ -79,6 +81,10 @@ export default {
 
     setShowDelete(payload) {
       this.showDelete = payload || false;
+    },
+
+    closeParentHeader() {
+      !this.hasChilds && this.toggleOpened()
     }
   },
 

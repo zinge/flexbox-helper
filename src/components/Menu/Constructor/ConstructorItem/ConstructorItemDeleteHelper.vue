@@ -15,18 +15,8 @@ export default {
       default: false
     },
 
-    setShowDelete: {
-      type: Function,
-      required: true
-    },
-
     path: {
       type: Array,
-      required: true
-    },
-
-    toggleOpened: {
-      type: Function,
       required: true
     }
   },
@@ -34,11 +24,11 @@ export default {
   methods: {
     handleDelete() {
       this.$store.commit('delItem', this.path)
-      this.toggleOpened()
+      this.$emit('itemDeleted')
     },
 
     handleCancel() {
-      this.setShowDelete()
+      this.$emit('setShowDelete')
     }
   }
 };
