@@ -1,23 +1,27 @@
 <template>
-  <PreviewContent :container="main" root />
+  <ConstructorItem :container="main" :path="path" root />
 </template>
 
 <script>
-import PreviewContent from "./PreviewContent";
 import { mapState } from "vuex";
+import ConstructorItem from "./ConstructorItem/TheConstructorItem";
 
 import { INITIAL_CHILD } from "@/constants";
 
 export default {
-  name: "Preview",
+  name: "Constructor",
 
   components: {
-    PreviewContent
+    ConstructorItem
   },
 
   computed: mapState({
     main(state) {
       return state.childs[INITIAL_CHILD];
+    },
+
+    path(state) {
+      return [state.childs[INITIAL_CHILD].hash];
     }
   })
 };

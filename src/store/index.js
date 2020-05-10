@@ -1,65 +1,72 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { hexGen } from '@/utils'
+
+import { hexGen, getHash, getChild } from './utils'
+import { BACKGROUND_COLOR } from '@/constants'
 
 Vue.use(Vuex)
+
 export default new Vuex.Store({
   state: {
-    childs: [{
-      name: 'Main',
-      type: 'div',
-      classes: [
-        'main'
-      ],
-      styles: [
-        { display: 'flex' },
-        { 'background-color': hexGen() }
-      ],
-      childs: []
-    }]
+    menuOpened: false,
+    childs: [
+      {
+        name: 'Main',
+        type: 'div',
+        classes: ['root-element'],
+        styles: {
+          display: 'flex',
+          [BACKGROUND_COLOR]: hexGen()
+        },
+        hash: getHash(),
+        childs: []
+      }
+    ],
+    modalName: '',
+    modalPath: []
   },
 
   mutations: {
-    changeName (state, payload) {
-      const item = getChild(state.childs, payload.path)
-      item.name = payload.name
+    toggleMenu(state) {
+      return state.menuOpened = !state.menuOpened
     },
 
-    addChild (state, payload) {
-      const item = getChild(state.childs, payload.path)
+    setModalName(state, payload) {
+      return state.modalName = payload || ""
+    },
+
+    setModalPath(state, payload) {
+      return state.modalPath = payload || []
+    },
+
+    addChild(state, payload) {
+      const item = getChild(state.childs, state.modalPath)
+
       item.childs = [
         ...item.childs,
         {
           name: payload.name,
           type: payload.type,
           classes: [payload.class],
-          styles: [{ 'background-color': hexGen() }],
-          childs: []
+          styles: { [BACKGROUND_COLOR]: hexGen() },
+          hash: getHash(),
+          childs: [],
         }
       ]
     },
 
-    delItem (state, payload) {
-      const itemParent = getChild(state.childs, payload.path.slice(0, -1))
+    delItem(state, payload) {
+      const itemParent = getChild(state.childs, payload.slice(0, -1))
+
       itemParent.childs = [
-        ...itemParent.childs.filter(child => child.name !== payload.path[payload.path.length - 1])
+        ...itemParent.childs.filter(child => child.hash !== payload[payload.length - 1])
       ]
     },
 
-    addParam (state, payload) {
-      const item = getChild(state.childs, payload.path)
-      item[payload.name] = [
-        ...item[payload.name],
-        payload.newParam
-      ]
-    }
+    changeName(state, payload) {
+      const item = getChild(state.childs, state.modalPath)
+
+      item.name = payload
+    },
   }
 })
-
-const getChild = (childs, path) => {
-  const currentItem = childs.find(child => child.name === path[0])
-  if (path.length === 1) {
-    return currentItem
-  }
-  return getChild(currentItem.childs, path.slice(1))
-}
