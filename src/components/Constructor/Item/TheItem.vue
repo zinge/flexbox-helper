@@ -52,7 +52,9 @@ export default {
       this.isOpened = !this.isOpened
     },
     hasChilds () {
-      return this.container.hasOwnProperty('childs') &&
+      const hasProperty = Object.prototype.hasOwnProperty.call(this.container, 'childs')
+
+      return hasProperty &&
         Array.isArray(this.container.childs)
     },
     childPath (child) {
@@ -62,7 +64,9 @@ export default {
 
   computed: {
     getColor () {
-      return this.container.styles.find(el => el.hasOwnProperty('background-color'))
+      return this.container.styles.find(el => {
+        return Object.prototype.hasOwnProperty.call(el, 'background-color')
+      })
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="modal">
-    <ExpandModal v-if="showExpandModal" :closeModal="closeModal" />
-    <ModifyModal v-if="showModifyModal" :closeModal="closeModal" />
+    <ExpandModal v-if="showExpandModal" @closeModal="closeModal" />
+    <ModifyModal v-if="showModifyModal" @closeModal="closeModal" />
   </div>
 </template>
 

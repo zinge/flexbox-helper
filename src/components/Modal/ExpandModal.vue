@@ -5,8 +5,8 @@
       <form
         slot="body"
         id="expand-form"
-        @submit="onSubmitHandler"
         class="expand__form"
+        @submit="onSubmitHandler"
         @reset="onResetHandler"
       >
         <p class="form__item">
@@ -70,35 +70,28 @@ export default {
     ModalTemplate
   },
 
-  props: {
-    closeModal: {
-      type: Function,
-      required: true
-    }
-  },
-
   methods: {
     onSubmitHandler(e) {
       e.preventDefault();
 
-      if (this.validate()) {
+      if (this.validateRequired()) {
         this.$store.commit("addChild", {
           name: this.childName,
           class: this.childClass,
           type: this.childType
         });
 
-        this.closeModal();
+        this.$emit("closeModal");
       }
     },
 
     onResetHandler(e) {
       e.preventDefault();
 
-      this.closeModal();
+      this.$emit("closeModal");
     },
 
-    validate() {
+    validateRequired() {
       const fields = ["childName", "childClass", "childType"];
       const empty = fields.filter(field => !this[field]);
 
@@ -134,7 +127,7 @@ export default {
   flex-direction: column;
 }
 
-.form__item {
+.expand__form .form__item {
   margin: 0;
 }
 
@@ -142,12 +135,12 @@ export default {
   margin-top: 0.5em;
 }
 
-.form__item > label {
+.expand__form .form__item > label {
   display: inline-block;
   width: 100px;
 }
 
-.form__item > input {
+.expand__form .form__item > input {
   display: inline-block;
   width: calc(100% - 100px);
   box-sizing: border-box;

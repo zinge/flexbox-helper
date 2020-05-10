@@ -55,12 +55,18 @@ export default new Vuex.Store({
       ]
     },
 
-    delItem (state, payload) {
+    delItem(state, payload) {
       const itemParent = getChild(state.childs, payload.slice(0, -1))
 
       itemParent.childs = [
         ...itemParent.childs.filter(child => child.hash !== payload[payload.length - 1])
       ]
+    },
+
+    changeName(state, payload) {
+      const item = getChild(state.childs, state.modalPath)
+
+      item.name = payload
     },
   }
 })
