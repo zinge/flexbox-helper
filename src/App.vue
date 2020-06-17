@@ -2,14 +2,14 @@
   <div id="app">
     <Preview />
     <Menu />
-    <Hambureger />
+    <Hamburger />
     <Modal />
   </div>
 </template>
 
 <script>
 import Menu from "@/components/Menu/TheMenu";
-import Hambureger from "@/components/TheHamburger";
+import Hamburger from "@/components/TheHamburger";
 import Preview from "@/components/Preview/ThePreview";
 import Modal from "@/components/Modal/TheModal";
 
