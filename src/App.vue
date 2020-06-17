@@ -17,7 +17,7 @@ export default {
   name: "App",
   components: {
     Menu,
-    Hambureger,
+    Hamburger,
     Preview,
     Modal
   }
